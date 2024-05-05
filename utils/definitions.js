@@ -1,0 +1,1 @@
+export const ORIGIN_LIST = ['http://localhost:3000', 'http://54.242.93.51/'];
