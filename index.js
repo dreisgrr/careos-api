@@ -10,12 +10,14 @@ import formRoutes from "./routes/formRoutes.js";
 
 const app = express();
 dotenv.config();
+let isDBConnected = false;
 
 const connectDB = async () => {
   try {
     console.log(MSG_CONNECTION.MONGODB_CONNECTING);
     await mongoose.connect(process.env.MONGODB_DEV);
     console.log(MSG_CONNECTION.MONGODB_CONNECTED);
+    isDBConnected = true;
   } catch (error) {
     throw error;
   }
@@ -35,6 +37,9 @@ app.use("/api/forms", formRoutes);
 
 app.get("/ping", (req, res) => {
   res.send(MSG_CONNECTION.WELCOME_SUPERAPP);
+});
+app.get("/db", (req, res) => {
+  res.send(isDBConnected);
 });
 app.listen(8800, () => {
   connectDB();
